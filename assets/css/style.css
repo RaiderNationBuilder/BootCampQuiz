@@ -1,0 +1,47 @@
+* {
+    margin: 0;
+}
+
+.header {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    
+}
+
+.header button {
+    font-size: x-large;
+    background-color: white;
+    border: white;
+    color: violet;
+}
+
+.header p {
+    font-size: 1.65em;
+}
+
+.body-style {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin: 10% 25%;
+}
+
+.body-style h1 {    
+    font-size: 3em;
+}
+
+.body-style p {
+    font-size: x-large;
+    padding: 4% 0;
+}
+
+.body-style button {
+    width:fit-content;
+    font-size: x-large;
+    align-self: center;
+    padding: 1% 2%;
+    background-color: purple;
+    color: white;
+    border-radius: .5em;
+}

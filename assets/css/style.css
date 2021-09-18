@@ -14,10 +14,12 @@
     background-color: white;
     border: white;
     color: violet;
+    padding: 2% 0 0 2%
 }
 
 .header p {
     font-size: 1.65em;
+    padding: 2% 2% 0 0;
 }
 
 .body-style {

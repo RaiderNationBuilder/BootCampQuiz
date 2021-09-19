@@ -25,20 +25,26 @@
 .body-style {
     display: flex;
     flex-direction: column;
-    text-align: center;
     margin: 10% 25%;
 }
 
-.body-style h1 {    
+.h1-onload {     
+    text-align: center;   
     font-size: 3em;
 }
 
-.body-style p {
+.h1-questions {     
+    text-align: left;   
+    font-size: 3em;
+}
+
+.p-onload {    
+    text-align: center;
     font-size: x-large;
     padding: 4% 0;
 }
 
-.body-style button {
+.btn-start {
     width:fit-content;
     font-size: x-large;
     align-self: center;
@@ -46,4 +52,15 @@
     background-color: purple;
     color: white;
     border-radius: .5em;
+}
+
+.btn-quiz {
+    width: 33%;
+    font-size: x-large;
+    align-self: left;
+    padding: 1% 2%;
+    background-color: purple;
+    color: white;
+    border-radius: .5em;
+    text-align: left;
 }

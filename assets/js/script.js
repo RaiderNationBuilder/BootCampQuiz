@@ -10,49 +10,91 @@ var startBtn = document.createElement('button', 'Start Quiz');
 var h1Content = 'Coding Quiz Challenge';
 var count = 0;
 var timeLeft = 60;
-var pickedButton
 
-var questions = ["String values must be enclosed within __________ when being assigned to variables.", "Arrays in JavaScript can be used to store __________?", "The condition in an if / else statement is enclosed with __________?",
-"Commonly used data types DO Not Include:", "A very useful tool used during development and debugging for printing content to the debugger is:", "All Done!","High Scores"]
-var possibleAnswers = {
-    q0: ['1. commas', '2. curly brackets', '3. quotes', '4. paraenthesis', 2],
-    q1: ['1. numbers and strings', '2. other arrays', '3. booleans', '4. all of the above', 4]
-}
-
+// var questions = ["String values must be enclosed within __________ when being assigned to variables.", "Arrays in JavaScript can be used to store __________?", "The condition in an if / else statement is enclosed with __________?",
+// "Commonly used data types DO Not Include:", "A very useful tool used during development and debugging for printing content to the debugger is:", "All Done!","High Scores"]
+// var possibleAnswers = {
+//     q0: ['1. commas', '2. curly brackets', '3. quotes', '4. paraenthesis', 2],
+//     q1: ['1. numbers and strings', '2. other arrays', '3. booleans', '4. all of the above', 4]
+// }
+var questionsandanswers = [
+    {
+        question: "String values must be enclosed within __________ when being assigned to variables.",
+        answer1: '1. commas',
+        answer2: '2. curly brackets',
+        answer3: '3. quotes',
+        answer4: '4. paraenthesis',
+        correctAnswer: 2
+    },
+    {
+        question: "Arrays in JavaScript can be used to store __________?",
+        answer1: '1. numbers and strings',
+        answer2: '2. other arrays',
+        answer3: '3. booleans',
+        answer4: '4. all of the above',
+        correctAnswer: 4
+    },
+    {
+        question: "The condition in an if / else statement is enclosed with __________?",
+        answer1: '1. quotes',
+        answer2: '2. curly brackets',
+        answer3: '3. parenthesis',
+        answer4: '4. square brackets',
+        correctAnswer: 3
+    },
+    {
+        question: "Commonly used data types DO Not Include:",
+        answer1: '1. strings',
+        answer2: '2. booleans',
+        answer3: '3. alets',
+        answer4: '4. numbers',
+        correctAnswer: 3
+    },
+    {
+        question: "A very useful tool used during development and debugging for printing content to the debugger is:",
+        answer1: '1. JavaScript',
+        answer2: '2. terminal/bash',
+        answer3: '3. for loops',
+        answer4: '4. console.log',
+        correctAnswer: 4
+    }
+];
 
 var screenWipe = function () {
     console.log("wipe call");
     
     $('#main').empty();
 }
-var addQueston = function() {
+// var addQueston = function() {
 
-    console.log("in addQuestion");
+//     console.log("in addQuestion");
 
-    $(newH1).appendTo('#main')
-        .attr('class', 'h1-questions')
-        .text(questions[count]);
-};
+    // $(newH1).appendTo('#main')
+    //     .attr('class', 'h1-questions')
+    //     .text(questions[count]);
+// };
 // adding buttons to screen that contain the answers to the questions
-var addButtons = function() {
-    $(newDiv).appendTo('#main')
-        .attr({'class': 'btn-div',
-        'id': 'answers'});
-    
-    console.log('in addButtons()')
+// var addButtons = function() {
+    // for (var n = 0; n < 6; n++) {
+    //     $(newH1).appendTo('#main')
+    //         .attr({'class': 'h1-questions','text': questionsandanswers[n]});
 
-
-    for (var i = 0; i < 4; i++) {
-        var qAnswer = 'q' + count;
-        var objAns = possibleAnswers[qAnswer];
-        var answerBtn = document.createElement('button', possibleAnswers[qAnswer]);
+    //     $(newDiv).appendTo('#main')
+    //         .attr({'class': 'btn-div',
+    //         'id': 'answers'});
         
-        newDiv.appendChild(answerBtn);
-        answerBtn.textContent = objAns[i];
-        answerBtn.setAttribute('class', 'btn-quiz');
-        answerBtn.setAttribute('id', i);
-    } 
+    //     console.log('in addButtons()')
 
+
+    //     for (var i = 0; i < 4; i++) {
+    //         console.log("inner for loop");
+    //         var answerStr = 'answer' + i;
+    //         // var objAns = possibleAnswers[qAnswer];
+    //         var answerBtn = $('button').text(answerStr);
+    //         $(answerBtn).attr({'class': 'btn-quiz', 'id': i });
+            
+    //     }; 
+    // };
     // $('.btn-div').on("click", checkClick());
     //     function checkClick() {
     //         var selectedBtn = event.target.id;
@@ -63,41 +105,89 @@ var addButtons = function() {
     //                 count++;                                                            
     //             };
     //     }; 
-    return objAns[4];
-}
+    // return objAns[4];
 
-var quiz = function() {
-    // remove old elements from screen
+//     var correctAnswer = questionsandanswers[n].correctAnswer;
+//     console.log(correctAnswer);
+//     return correctAnswer;
+// }
+
+// var quiz = function() {
+//     console.log('in quiz()');
+//     // remove old elements from screen
+//     screenWipe();
+//     // create html elements that hold updated data
+//     addButtons();    
+    
+    
+    // add proper question and answer buttons to screen
+    // addQueston();
+     
+    // var correctAnswer = addButtons();
+    // console.log("correct answer " + correctAnswer);       
+// }
+
+function checkClick(event) {
     screenWipe();
-    // create html elements that hold updated data
-    
-    
+    var selectedBtn = null;
+    selectedBtn = event.target.id;   
+    // var answerBtn1 = $('<input type = "button" value = "new button1"/>');
+    // var answerBtn2 = $('<input type = "button" value = "new button2"/>');
+    // var answerBtn3 = $('<input type = "button" value = "new button3"/>');
+    // var answerBtn4 = $('<input type = "button" value = "new button4"/>');
+           console.log(questionsandanswers[count].question);
+        $(newH1).appendTo('#main')
+            .attr('class', 'h1-questions')
+            .html(questionsandanswers[count].question);
+            
+        $(newDiv).appendTo('#main')
+            .attr({'class': 'btn-div',
+            'id': 'answers'}); 
+            
+        // $(answerBtn1).appendTo($('#answers'));
 
-    console.log('count ' +count);
-    
-    
-    // add proper question to screen
-    addQueston();
-    // add answer buttons 
-    var correctAnswer = addButtons();
-    console.log("correct answer " + correctAnswer);
-    $('main').on("click", checkClick()); 
-    
-        function checkClick() {
-            var selectedBtn = event.target.id;
-            console.log(selectedBtn);
-                if (selectedBtn == correctAnswer) {
-                    console.log("correct answer picked") 
-                    $('#answers').append('<h1 class="result">Correct</h1>')           
-                    count++;                                                            
-                }; 
-                               
+        // $(answerBtn2).appendTo($('#answers'));
+
+        // $(answerBtn3).appendTo($('#answers'));
+
+        // $(answerBtn4).appendTo($('#answers'));
+       
+        for (var i = 0; i < 4; i++) {
+            console.log("inner for loop");
+            //variables to build questionandanswer obj array iterator
+            var answerIdx = 'answer' + (i + 1);
+            var answerStr = "questionsandanswers[count]." + answerIdx;
+
+            //variables to build four buttons
+            var BtnIdx = 'answerBtn' + (i + 1);
+            BtnIdx = $('<input type = "button" value = ' + answerStr + '/>');
+
+            //create button
+            $(BtnIdx).appendTo($('#answers'));            
+            $(BtnIdx).attr({'class': 'btn-quiz', 'id': i });            
         }; 
-}
+        var correctAnswer = questionsandanswers[count].correctAnswer;
+    
+    
+    console.log(selectedBtn);
+    console.log(correctAnswer);
+    if (selectedBtn != 'start') {
+        if (selectedBtn == correctAnswer) {
+            console.log("correct answer picked") 
+            $('#answers').append('<h1 class="result">Correct</h1>')           
+            count++;                                                           
+        }else if (selectedBtn != correctAnswer) {
+            console.log("incorrect answer picked") 
+            $('#answers').append('<h1 class="result">Wrong</h1>')           
+            count++;  
+        };          
+    }   
+    console.log(count);           
+}; 
 
 function countdown() {    
         
-    quiz();
+    // quiz();
     
     // Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
     // var timeInterval = setInterval(function() {
@@ -136,6 +226,7 @@ if (refresh) {
     onLoad();
 }
 
-$('.btn-quiz')
 startBtn.onclick = countdown;
 
+$('main').on("click", function(event) {
+     checkClick(event)});

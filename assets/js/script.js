@@ -2,6 +2,7 @@ var bodyEl = document.querySelector('#main')
 var timerEl = document.getElementById('countdown');
 var mainEl = document.getElementById('main');
 var h1El = document.getElementById('main-h1');
+var subtractTime = false;
 
 var newH1 = document.createElement('h1');
 var newDiv = document.createElement('div');
@@ -10,14 +11,7 @@ var startBtn = document.createElement('button', 'Start Quiz');
 var h1Content = 'Coding Quiz Challenge';
 var count = 0;
 var timeLeft = 60;
-var subtractTime = false;
 
-// var questions = ["String values must be enclosed within __________ when being assigned to variables.", "Arrays in JavaScript can be used to store __________?", "The condition in an if / else statement is enclosed with __________?",
-// "Commonly used data types DO Not Include:", "A very useful tool used during development and debugging for printing content to the debugger is:", "All Done!","High Scores"]
-// var possibleAnswers = {
-//     q0: ['1. commas', '2. curly brackets', '3. quotes', '4. paraenthesis', 2],
-//     q1: ['1. numbers and strings', '2. other arrays', '3. booleans', '4. all of the above', 4]
-// }
 var questionsandanswers = [
     {
         question: "String values must be enclosed within __________ when being assigned to variables.",
@@ -69,20 +63,20 @@ var screenWipe = function () {
     $('#main').empty();    
 }
 
-var reduceclock = function() {
-    subtractTime = true; 
-    console.log(subtractTime);
-    return subtractTime;    
-}
+var reduceClock = function() {
+    console.log('in reduceClock');
+    subtractTime = true;
+    return subtractTime;
+};
 
 function checkClick(event) {
-    screenWipe();
-   
-    var selectedBtn = null;
-    selectedBtn = event.target.id;     
+    screenWipe();   
     
+    var selectedBtn = null;
+    selectedBtn = event.target.id;    
+
     console.log(count); 
-    if (selectedBtn != 'start') {  
+    if (selectedBtn != 'start' && count > 0) {  
         var countiterator = count -1;
         var correctAnswer = questionsandanswers[countiterator].correctAnswer;    
         console.log(selectedBtn);
@@ -94,96 +88,68 @@ function checkClick(event) {
         } else if (selectedBtn != correctAnswer) {
             console.log("incorrect answer picked") 
             $('#answers').append('<h1 class="result">Wrong</h1>') 
-            reduceclock();             
+            reduceClock();             
         };     
         
-        console.log("count " + count);    
-        console.log(questionsandanswers[count].question);
-
-        $(newH1).appendTo('#main')
-            .attr('class', 'h1-questions')
-            .html(questionsandanswers[count].question);
-            
-        $(newDiv).appendTo('#main')
-            .attr({'class': 'btn-div',
-            'id': 'answers'}); 
-
-        for (var i = 0; i < 4; i++) {
-            console.log("inner for loop");
-            //variables to build questionandanswer obj array iterator
-            var answerIdx = 'answer' + (i + 1);
-            var answerStr = "questionsandanswers[" + count + "]." + answerIdx;
-
-            //variables to build four buttons
-            var BtnIdx = 'answerBtn' + (i + 1);
-            BtnIdx = $('<input type = "button"/>');
-
-            //create button
-            $(BtnIdx).appendTo($('#answers'));            
-            $(BtnIdx).attr({'class': 'btn-quiz', 'id': i, 'value': eval(answerStr)});  
-            // $(BtnIdx).html(answerStr);
-            console.log(eval(answerStr));                
-        }; 
+                      
     } else {
-        console.log("count " + count);    
-        console.log(questionsandanswers[count].question);
+        countdown();
+    } 
+    //create and append <h1>
+    $(newH1).appendTo('#main')
+        .attr('class', 'h1-questions')
+        .html(questionsandanswers[count].question);
+    //create and append <div>    
+    $(newDiv).appendTo('#main')
+        .attr({'class': 'btn-div',
+        'id': 'answers'}); 
+    // use for loop to add button to page
+    for (var i = 0; i < 4; i++) {
+        console.log("inner for loop");
+        //variables to build questionandanswer obj array iterator
+        var answerIdx = 'answer' + (i + 1);
+        var answerStr = "questionsandanswers[" + count + "]." + answerIdx;
 
-        $(newH1).appendTo('#main')
-            .attr('class', 'h1-questions')
-            .html(questionsandanswers[count].question);
-            
-        $(newDiv).appendTo('#main')
-            .attr({'class': 'btn-div',
-            'id': 'answers'}); 
+        //variables to build four buttons
+        var BtnIdx = 'answerBtn' + (i + 1);
+        BtnIdx = $('<input type = "button"/>');
 
-        for (var i = 0; i < 4; i++) {
-            console.log("inner for loop");
-            //variables to build questionandanswer obj array iterator
-            var answerIdx = 'answer' + (i + 1);
-            var answerStr = "questionsandanswers[" + count + "]." + answerIdx;
-
-            //variables to build four buttons
-            var BtnIdx = 'answerBtn' + (i + 1);
-            BtnIdx = $('<input type = "button"/>');
-
-            //create button
-            $(BtnIdx).appendTo($('#answers'));            
-            $(BtnIdx).attr({'class': 'btn-quiz', 'id': i, 'value': eval(answerStr)});  
-            // $(BtnIdx).html(answerStr);
-            console.log(eval(answerStr)); 
-        }          
+        //create button
+        $(BtnIdx).appendTo($('#answers'));            
+        $(BtnIdx).attr({'class': 'btn-quiz', 'id': i, 'value': eval(answerStr)});                  
     };
-    count++        
-}; 
-console.log(subtractTime);
-function countdown() {    
+
+    count++     
     
-    // quiz();
-    
-    // Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
-    var timeInterval = setInterval(function(subtractTime) {
-        console.log(subtractTime); 
-        // console.log("set interval");        
-        // As long as the `timeLeft` is greater than 0
-        if (timeLeft > 0) {
-            if (subtractTime) {
-                timeLeft = timeLeft - 10;
-                subtractTime = false;
-            }
-            // Set the `textContent` of `timerEl` to show the remaining seconds
-            timerEl.textContent = 'Time: ' + timeLeft;       
-            // Decrement `timeLeft` by 1
-            // console.log(timeLeft)
-            timeLeft--;      
-        } else {
-            // Use `clearInterval()` to stop the timer
-            clearInterval(timeInterval);
-            // Call the `displayMessage()` function
-            alert("This Quiz Has Concluded!");
-        }
+    function countdown(subtractTime) {      
         
-    }, 1000);
-  }
+        // Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
+        var timeInterval = setInterval(function() {
+            var minusTime = this.subtractTime;
+            
+            if (minusTime) {
+                timeLeft -= 10;                
+                minusTime = false;
+            };    
+            // As long as the `timeLeft` is greater than 0
+            if (timeLeft > 0) {
+                                    
+                // Set the `textContent` of `timerEl` to show the remaining seconds
+                timerEl.textContent = 'Time: ' + timeLeft;       
+                // Decrement `timeLeft` by 1                
+                timeLeft--;      
+            } else {
+                // Use `clearInterval()` to stop the timer
+                clearInterval(timeInterval);
+                // Call the `displayMessage()` function
+                alert("This Quiz Has Concluded!");
+            }
+            this.subtractTime = false;                          
+        }, 1000);
+        
+    };
+}; 
+  
   var onLoad = function () {
     timerEl.textContent = 'Time: 0';
     h1El.setAttribute('class', 'h1-onload')
@@ -202,8 +168,6 @@ var refresh = true;
 if (refresh) {
     onLoad();
 }
-
-startBtn.onclick = countdown;
 
 $('main').on("click", function(event) {
      checkClick(event)});

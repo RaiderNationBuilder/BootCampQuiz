@@ -12,7 +12,7 @@ var h1Content = 'Coding Quiz Challenge';
 var count = 0;
 var timeLeft = 0;
 var gameDone = false;
-var playerScore
+var playerScore = 0;
 
 var questionsandanswers = [
     {
@@ -73,16 +73,17 @@ var reduceClock = function() {
 
 var gameOver = function() {
     screenWipe(); 
-    var $endGame = $("<p class='p-onload'>Your final score is " + playerScore + ".</p>",
-            "<p class='p-onload'>Enter Initials:' '</p><span><input type='text'></span><span><button type='submit'>Submit</button>");
+    var $endGame = $("<div><p class='p-onload'>Your final score is " + playerScore + ".</p></div><div class='score-pdiv'><p class='p-onload'>Enter Initials:</p><span class='span'><input type='text' value='Hello' class='input'></span><span class='span'><button class='btn-score' type='submit'>Submit</button></div>");
     
     this.timeLeft = 0;
+
+    $('#main').attr('class', 'score-div')
 
     $(newH1).appendTo('#main')
             .attr('class', 'h1-questions')
             .html("All done!");
 
-    $('#ending-div').append($endGame)  
+    $('#main').append($endGame)  
 };
 
 function checkClick(event) {

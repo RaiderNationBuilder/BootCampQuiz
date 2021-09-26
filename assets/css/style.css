@@ -79,3 +79,38 @@
     color: lightgray;
     margin-top: .5em;
 }
+
+.score-div {
+    display: flex;
+    flex-direction: column;
+    margin: 10% 25%;
+    align-items: flex-start;
+}
+
+.score-pdiv {
+    display:flex;
+    flex-direction: row;
+    width: fit-content;
+}
+
+span {
+    padding-top: .5em;
+    /* width: fit-content; */
+}
+
+.input{
+    height:2em;
+}
+
+.btn-score {
+    min-width: 33%;
+    width: fit-content;
+    font-size: x-large;
+    align-self: left;
+    padding: 1% 2%;
+    background-color: purple;
+    color: white;
+    border-radius: .5em;
+    text-align: left;
+    margin: 2% 0 0 0;
+}

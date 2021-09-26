@@ -3,71 +3,119 @@ var timerEl = document.getElementById('countdown');
 var mainEl = document.getElementById('main');
 var h1El = document.getElementById('main-h1');
 
-
+var newH1 = document.createElement('h1');
+var newDiv = document.createElement('div');
 var pEl = document.createElement('p');
 var startBtn = document.createElement('button', 'Start Quiz');
 var h1Content = 'Coding Quiz Challenge';
-
+var count = 0;
 var timeLeft = 60;
+var pickedButton
 
 var questions = ["String values must be enclosed within __________ when being assigned to variables.", "Arrays in JavaScript can be used to store __________?", "The condition in an if / else statement is enclosed with __________?",
-"Commonly used data types DO Not Include:", "A very useful tool used during development and debugging for printint content to the debugger is:"]
+"Commonly used data types DO Not Include:", "A very useful tool used during development and debugging for printing content to the debugger is:", "All Done!","High Scores"]
 var possibleAnswers = {
-    q0: ['1. commas', '2. curly brackets', '3. quotes', '4. paraenthesis', 3],
+    q0: ['1. commas', '2. curly brackets', '3. quotes', '4. paraenthesis', 2],
     q1: ['1. numbers and strings', '2. other arrays', '3. booleans', '4. all of the above', 4]
 }
 
 
 var screenWipe = function () {
-    var getChild = document.getElementById('main').lastChild.nodeName;
-    while (getChild != 'H1'){
-        var childEl = document.getElementById('main').lastChild;    
-        childEl.remove();
-        var getChild = document.getElementById('main').lastChild.nodeName;
-    }
+    console.log("wipe call");
     
+    $('#main').empty();
+}
+var addQueston = function() {
+
+    console.log("in addQuestion");
+
+    $(newH1).appendTo('#main')
+        .attr('class', 'h1-questions')
+        .text(questions[count]);
+};
+// adding buttons to screen that contain the answers to the questions
+var addButtons = function() {
+    $(newDiv).appendTo('#main')
+        .attr({'class': 'btn-div',
+        'id': 'answers'});
+    
+    console.log('in addButtons()')
+
+
+    for (var i = 0; i < 4; i++) {
+        var qAnswer = 'q' + count;
+        var objAns = possibleAnswers[qAnswer];
+        var answerBtn = document.createElement('button', possibleAnswers[qAnswer]);
+        
+        newDiv.appendChild(answerBtn);
+        answerBtn.textContent = objAns[i];
+        answerBtn.setAttribute('class', 'btn-quiz');
+        answerBtn.setAttribute('id', i);
+    } 
+
+    // $('.btn-div').on("click", checkClick());
+    //     function checkClick() {
+    //         var selectedBtn = event.target.id;
+    //         console.log(selectedBtn);
+    //             if (selectedBtn == objAns[4]) {
+    //                 console.log("correct answer picked") 
+    //                 $('#answers').append('<h1 class="result">Correct</h1>')           
+    //                 count++;                                                            
+    //             };
+    //     }; 
+    return objAns[4];
 }
 
 var quiz = function() {
+    // remove old elements from screen
     screenWipe();
-    var count = 0;
-        
-        h1El.textContent = questions[count];
-        h1El.setAttribute('class', 'h1-questions')  
-        
-        for (var i = 0; i < 4; i++) {
-            var qAnswer = 'q' + count;
-            var objAns = possibleAnswers[qAnswer]
-            var answerBtn = document.createElement('button', possibleAnswers[qAnswer])
-            // console.log(qAnswer);
-            // console.log(answerBtn);
-            mainEl.appendChild(answerBtn)
-            answerBtn.textContent = objAns[i];
-            answerBtn.setAttribute('class', 'btn-quiz')
-        }          
+    // create html elements that hold updated data
+    
+    
+
+    console.log('count ' +count);
+    
+    
+    // add proper question to screen
+    addQueston();
+    // add answer buttons 
+    var correctAnswer = addButtons();
+    console.log("correct answer " + correctAnswer);
+    $('main').on("click", checkClick()); 
+    
+        function checkClick() {
+            var selectedBtn = event.target.id;
+            console.log(selectedBtn);
+                if (selectedBtn == correctAnswer) {
+                    console.log("correct answer picked") 
+                    $('#answers').append('<h1 class="result">Correct</h1>')           
+                    count++;                                                            
+                }; 
+                               
+        }; 
 }
 
 function countdown() {    
-    console.log("countdown");
-    
+        
     quiz();
+    
     // Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
-    var timeInterval = setInterval(function() {
-        console.log("set interval");
-      // As long as the `timeLeft` is greater than 0
-      if (timeLeft > 0) {
-        // Set the `textContent` of `timerEl` to show the remaining seconds
-        timerEl.textContent = 'Time: ' + timeLeft;       
-        // Decrement `timeLeft` by 1
-        console.log(timeLeft)
-        timeLeft--;      
-      } else {
-        // Use `clearInterval()` to stop the timer
-        clearInterval(timeInterval);
-        // Call the `displayMessage()` function
-        alert("This Quiz Has Concluded!");
-      }
-    }, 1000);
+    // var timeInterval = setInterval(function() {
+    //     console.log("set interval");
+    //   // As long as the `timeLeft` is greater than 0
+    //   if (timeLeft > 0) {
+    //     // Set the `textContent` of `timerEl` to show the remaining seconds
+    //     timerEl.textContent = 'Time: ' + timeLeft;       
+    //     // Decrement `timeLeft` by 1
+    //     console.log(timeLeft)
+    //     timeLeft--;      
+    //   } else {
+    //     // Use `clearInterval()` to stop the timer
+    //     clearInterval(timeInterval);
+    //     // Call the `displayMessage()` function
+    //     alert("This Quiz Has Concluded!");
+    //   }
+    // }, 1000);
   }
   var onLoad = function () {
     timerEl.textContent = 'Time: 0';
@@ -87,6 +135,7 @@ var refresh = true;
 if (refresh) {
     onLoad();
 }
+
+$('.btn-quiz')
 startBtn.onclick = countdown;
 
- 

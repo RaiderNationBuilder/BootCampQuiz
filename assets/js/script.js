@@ -33,7 +33,7 @@ var questionsandanswers = [
         answer2: '2. other arrays',
         answer3: '3. booleans',
         answer4: '4. all of the above',
-        correctAnswer: 4
+        correctAnswer: 3
     },
     {
         question: "The condition in an if / else statement is enclosed with __________?",
@@ -41,7 +41,7 @@ var questionsandanswers = [
         answer2: '2. curly brackets',
         answer3: '3. parenthesis',
         answer4: '4. square brackets',
-        correctAnswer: 3
+        correctAnswer: 2
     },
     {
         question: "Commonly used data types DO Not Include:",
@@ -49,7 +49,7 @@ var questionsandanswers = [
         answer2: '2. booleans',
         answer3: '3. alets',
         answer4: '4. numbers',
-        correctAnswer: 3
+        correctAnswer: 2
     },
     {
         question: "A very useful tool used during development and debugging for printing content to the debugger is:",
@@ -57,76 +57,18 @@ var questionsandanswers = [
         answer2: '2. terminal/bash',
         answer3: '3. for loops',
         answer4: '4. console.log',
-        correctAnswer: 4
+        correctAnswer: 3
     }
 ];
 
 var screenWipe = function () {
     console.log("wipe call");
-    
-    $('#main').empty();
+    if ($('#answers')) {
+        $('#answers').empty();
+    }
+    $('#main').empty();    
 }
-// var addQueston = function() {
 
-//     console.log("in addQuestion");
-
-    // $(newH1).appendTo('#main')
-    //     .attr('class', 'h1-questions')
-    //     .text(questions[count]);
-// };
-// adding buttons to screen that contain the answers to the questions
-// var addButtons = function() {
-    // for (var n = 0; n < 6; n++) {
-    //     $(newH1).appendTo('#main')
-    //         .attr({'class': 'h1-questions','text': questionsandanswers[n]});
-
-    //     $(newDiv).appendTo('#main')
-    //         .attr({'class': 'btn-div',
-    //         'id': 'answers'});
-        
-    //     console.log('in addButtons()')
-
-
-    //     for (var i = 0; i < 4; i++) {
-    //         console.log("inner for loop");
-    //         var answerStr = 'answer' + i;
-    //         // var objAns = possibleAnswers[qAnswer];
-    //         var answerBtn = $('button').text(answerStr);
-    //         $(answerBtn).attr({'class': 'btn-quiz', 'id': i });
-            
-    //     }; 
-    // };
-    // $('.btn-div').on("click", checkClick());
-    //     function checkClick() {
-    //         var selectedBtn = event.target.id;
-    //         console.log(selectedBtn);
-    //             if (selectedBtn == objAns[4]) {
-    //                 console.log("correct answer picked") 
-    //                 $('#answers').append('<h1 class="result">Correct</h1>')           
-    //                 count++;                                                            
-    //             };
-    //     }; 
-    // return objAns[4];
-
-//     var correctAnswer = questionsandanswers[n].correctAnswer;
-//     console.log(correctAnswer);
-//     return correctAnswer;
-// }
-
-// var quiz = function() {
-//     console.log('in quiz()');
-//     // remove old elements from screen
-//     screenWipe();
-//     // create html elements that hold updated data
-//     addButtons();    
-    
-    
-    // add proper question and answer buttons to screen
-    // addQueston();
-     
-    // var correctAnswer = addButtons();
-    // console.log("correct answer " + correctAnswer);       
-// }
 var reduceclock = function() {
     subtractTime = true; 
     console.log(subtractTime);
@@ -135,13 +77,29 @@ var reduceclock = function() {
 
 function checkClick(event) {
     screenWipe();
+   
     var selectedBtn = null;
-    selectedBtn = event.target.id;   
-    // var answerBtn1 = $('<input type = "button" value = "new button1"/>');
-    // var answerBtn2 = $('<input type = "button" value = "new button2"/>');
-    // var answerBtn3 = $('<input type = "button" value = "new button3"/>');
-    // var answerBtn4 = $('<input type = "button" value = "new button4"/>');
-           console.log(questionsandanswers[count].question);
+    selectedBtn = event.target.id;     
+    
+    console.log(count); 
+    if (selectedBtn != 'start') {  
+        var countiterator = count -1;
+        var correctAnswer = questionsandanswers[countiterator].correctAnswer;    
+        console.log(selectedBtn);
+        console.log(correctAnswer); 
+        if (selectedBtn == correctAnswer) {
+            console.log("correct answer picked") 
+            $('#answers').append('<h1 class="result">Correct</h1>')           
+                                                                      
+        } else if (selectedBtn != correctAnswer) {
+            console.log("incorrect answer picked") 
+            $('#answers').append('<h1 class="result">Wrong</h1>') 
+            reduceclock();             
+        };     
+        
+        console.log("count " + count);    
+        console.log(questionsandanswers[count].question);
+
         $(newH1).appendTo('#main')
             .attr('class', 'h1-questions')
             .html(questionsandanswers[count].question);
@@ -149,15 +107,7 @@ function checkClick(event) {
         $(newDiv).appendTo('#main')
             .attr({'class': 'btn-div',
             'id': 'answers'}); 
-            
-        // $(answerBtn1).appendTo($('#answers'));
 
-        // $(answerBtn2).appendTo($('#answers'));
-
-        // $(answerBtn3).appendTo($('#answers'));
-
-        // $(answerBtn4).appendTo($('#answers'));
-       
         for (var i = 0; i < 4; i++) {
             console.log("inner for loop");
             //variables to build questionandanswer obj array iterator
@@ -172,30 +122,41 @@ function checkClick(event) {
             $(BtnIdx).appendTo($('#answers'));            
             $(BtnIdx).attr({'class': 'btn-quiz', 'id': i, 'value': eval(answerStr)});  
             // $(BtnIdx).html(answerStr);
-            console.log(eval(answerStr));
-                 
+            console.log(eval(answerStr));                
         }; 
-        var correctAnswer = questionsandanswers[count].correctAnswer;
-    
-    
-    console.log(selectedBtn);
-    console.log(correctAnswer);
-    if (selectedBtn != 'start') {
-        if (selectedBtn == correctAnswer) {
-            console.log("correct answer picked") 
-            $('#answers').append('<h1 class="result">Correct</h1>')           
-            count++;                                                           
-        }else if (selectedBtn != correctAnswer) {
-            console.log("incorrect answer picked") 
-            $('#answers').append('<h1 class="result">Wrong</h1>') 
-            reduceclock();          
-            count++;  
-        };          
-    }   
-    console.log(count);           
+    } else {
+        console.log("count " + count);    
+        console.log(questionsandanswers[count].question);
+
+        $(newH1).appendTo('#main')
+            .attr('class', 'h1-questions')
+            .html(questionsandanswers[count].question);
+            
+        $(newDiv).appendTo('#main')
+            .attr({'class': 'btn-div',
+            'id': 'answers'}); 
+
+        for (var i = 0; i < 4; i++) {
+            console.log("inner for loop");
+            //variables to build questionandanswer obj array iterator
+            var answerIdx = 'answer' + (i + 1);
+            var answerStr = "questionsandanswers[" + count + "]." + answerIdx;
+
+            //variables to build four buttons
+            var BtnIdx = 'answerBtn' + (i + 1);
+            BtnIdx = $('<input type = "button"/>');
+
+            //create button
+            $(BtnIdx).appendTo($('#answers'));            
+            $(BtnIdx).attr({'class': 'btn-quiz', 'id': i, 'value': eval(answerStr)});  
+            // $(BtnIdx).html(answerStr);
+            console.log(eval(answerStr)); 
+        }          
+    };
+    count++        
 }; 
 console.log(subtractTime);
-function countdown(subtractTime) {    
+function countdown() {    
     
     // quiz();
     

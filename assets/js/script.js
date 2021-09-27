@@ -12,7 +12,7 @@ var h1Content = 'Coding Quiz Challenge';
 var count = 0;
 var timeLeft = 0;
 var gameDone = false;
-var playerScore = 0;
+var playerScore = 50;
 
 var questionsandanswers = [
     {
@@ -73,17 +73,23 @@ var reduceClock = function() {
 
 var gameOver = function() {
     screenWipe(); 
-    var $endGame = $("<div><p class='p-onload'>Your final score is " + playerScore + ".</p></div><div class='score-pdiv'><p class='p-onload'>Enter Initials:</p><span class='span'><input type='text' value='Hello' class='input'></span><span class='span'><button class='btn-score' type='submit'>Submit</button></div>");
+    var $endGame = $("<div><p class='p-onload' id='player' data-score='" + this.playerScore + "'>Your final score is " + this.playerScore + ".</p></div><div class='score-pdiv'><p class='p-onload'>Enter Initials:</p><span class='span'><input type='text' id='score' Value='' class='input'></span><span class='span'><button class='btn-score' type='submit'>Submit</button></div>");
     
-    this.timeLeft = 0;
+   $('#high').submit(function(event) {
+       var initials = $('#score').val(); 
+       var highScore = $('#player').data('score');
+    debugger;
+    console.log(highScore);
+       localStorage.setItem(initials, highScore);
+   })
 
-    $('#main').attr('class', 'score-div')
+    $('#high').attr('class', 'score-div')
 
-    $(newH1).appendTo('#main')
+    $(newH1).appendTo('#high')
             .attr('class', 'h1-questions')
             .html("All done!");
 
-    $('#main').append($endGame)  
+    $('#high').append($endGame)  
 };
 
 function checkClick(event) {
@@ -107,7 +113,7 @@ function checkClick(event) {
                 if (selectedBtn == correctAnswer) {
                     console.log("correct answer picked") 
                     $('#answers').append('<h1 class="result">Correct</h1>')           
-                                                                            
+                    playerScore += 10;                                                    
                 } else if (selectedBtn != correctAnswer) {
                     console.log("incorrect answer picked") 
                     $('#answers').append('<h1 class="result">Wrong</h1>') 

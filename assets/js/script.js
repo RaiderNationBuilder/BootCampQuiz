@@ -10,7 +10,7 @@ var pEl = document.createElement('p');
 var startBtn = document.createElement('button', 'Start Quiz');
 var h1Content = 'Coding Quiz Challenge';
 var count = 0;
-var timeLeft = 0;
+var timeLeft = 60;
 var gameDone = false;
 var playerScore = 50;
 
